@@ -1,0 +1,99 @@
+Project Name: 
+
+Description: 
+
+----------------------
+Patients POV: 
+----------------------
+Filling Form
+ask for the Dept ? 
+each dept will have N doctors we can select one
+showing doctor fee and appointment date
+will be provided by registeration number which is link to phone SMS about the appointment
+
+----------------
+Receiptionist (Access to Dashboard Patients DB)
+----------------
+- Login 
+- Schedule a Appointment on behalf of the patients
+
+---------------
+Doctor (Access to Dashboard, and create Receiptionist, schedule appointment)
+---------------
+
+---------------
+Dean 
+---------------
+Basically SuperAdmin
+Create Doctor,Receiptionist and Patients
+Create Department
+
+
+---------------------------------------------------------------------------------------
+
+
+N Departments
+Each Departments will have N Doctors
+Doctors Availibility and Fees
+
+
+Patient:
+	name
+	mobile
+	address
+	email (optional)
+	aadhaar
+	dept
+	doctor
+	payment
+	appointmentTime
+	registerationNumber (unique)
+	addedBy: [self,Receiptionist,Doctor]
+	addedById: doctorId or ReceiptionistId
+	
+Receiptionist:
+	_id
+	name
+	username
+	password
+	email
+	mobile
+	address (optional)
+	addedBy: doctorId
+	
+Doctor:
+	_id
+	name
+	username
+	password
+	email
+	mobile
+	address (optional)
+	whichDept
+	Fees
+	Availibility
+	addedBy: deadId
+	
+Dean
+	name
+	username
+	password
+
+
+
+APIs:::CRUD
+
+Patients
+	Create Patient
+	Update Patient (Receiptionist)
+	Read Patients All
+	Read Patient by Registration Id/ Dept /Doctor
+Receiptionist
+	Create Receiptionist
+	Read Receiptionist
+	Delete Receiptionist
+	Update Receiptionist
+Doctors
+	Create Doctor
+	Delete Doctor
+Admins
