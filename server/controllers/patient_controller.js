@@ -1,10 +1,11 @@
 import mongoose from "mongoose"
-import patientModel from "../model/patientModel.js"
+import patientModel from "../models/patient_model.js"
 import sendMail from '../email.js'
+
 
 export async function createPatient(req, res) {
     try {
-        const { patientName,gender, mobileNumber, address, email, aadhar, department, doctorName, appointmentTime } = req.body
+        const { patientName, gender, mobileNumber, address, email, aadhar, department, doctorName, appointmentTime } = req.body
 
         let patientObj = {
             patientName,
@@ -66,7 +67,7 @@ export async function updatePatientData(req, res) {
         if (!mongoose.isValidObjectId(referenceNo)) {
             return res.status(400).json({ error: "please pass valid patient reference number" })
         }
-       
+
         let patientData = await patientModel.findByIdAndUpdate(
             referenceNo,
             {
@@ -81,9 +82,9 @@ export async function updatePatientData(req, res) {
                     appointmentTime: new Date(newAppointmentTime)
                 }
             },
-        { new : true })
-        if (!patientData){
-            return res.status(404).json({error:"patient not registered"})
+            { new: true })
+        if (!patientData) {
+            return res.status(404).json({ error: "patient not registered" })
         }
         res.status(200).json({ msg: "patient data updated successfylly" })
 
@@ -94,3 +95,15 @@ export async function updatePatientData(req, res) {
     }
 }
 
+export async function allPatient(req, res) {
+    try {
+        let patientdata = await patientModel.find()
+        if (!patientdata) {
+            return res.status(404).json({ error: "No patient available" })
+        }
+        res.status(200).send(patientdata)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ error: "Something went wrong" })
+    }
+}

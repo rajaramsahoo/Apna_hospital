@@ -1,19 +1,16 @@
-import mongoose from "mongoose";
 import config from "./config/config.js";
+import mongoose from "mongoose";
 
 
-//console.log(process.env.MONGODB_URI)
-
-const {MONGO_URL} = config
+const { MONGODB_URL } = config;
 
 async function dbConnect() {
-
     try {
-        await mongoose.connect(MONGO_URL);
-        console.log("DB connected successfully");
-    } catch (error) {
-        console.log(error);
-
+        await mongoose.connect(MONGODB_URL)
+        console.log('DB coonect sucessfully')
+    }
+    catch (err) {
+        console.log(err)
     }
 }
 dbConnect()

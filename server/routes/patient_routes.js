@@ -1,5 +1,5 @@
 import express from 'express';
-import {createPatient, viewyourData, updatePatientData} from '../controller/patient_controller.js';
+import {createPatient, viewyourData, updatePatientData, allPatient} from '../controllers/patient_controller.js';
 
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 /*
 description: create a patient
 method :post
-api_url: api/task
+api_url: api/patient
 */
 router.post('/',createPatient)
 
@@ -27,6 +27,12 @@ api_url: api/patient/:referenceNo
 */
 router.patch('/:referenceNo',updatePatientData);
 
+/*
+description: get Patient
+method :get
+api_url: api/patient
+*/
+router.get('/', allPatient );
 
 
 export default router;
