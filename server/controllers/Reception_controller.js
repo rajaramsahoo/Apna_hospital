@@ -2,6 +2,7 @@ import ReceiptionsModel from "../models/Receiptions_model.js";
 import doctorModel from "../models/doctor_model.js";
 import bcrypt from "bcrypt";
 import sendMail from "../email.js";
+import mongoose from "mongoose";
 
 export const receptionistSignup = async (req, res) => {
     try {
@@ -40,7 +41,7 @@ export const receptionistSignup = async (req, res) => {
             email,
             mobile,
             address,
-            addedBy :  userFound.name
+            addedBy: userFound.name
         }
 
         await ReceiptionsModel.create(receptionistData)
@@ -82,5 +83,93 @@ export const receptionistLogin = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: "something error in login" })
+    }
+}
+
+
+export const singleReceptionistData = async (req, res) => {
+    try {
+        const { referenceNo } = req.params;
+        if (!mongoose.isValidObjectId(referenceNo)) {
+            return res.status(400).json({ error: 'please pass valid Receptionist reference number' })
+        }
+
+
+        let receptionistData = await ReceiptionsModel.findById(referenceNo);
+
+
+        if (!ReceiptionsModel) {
+            return res.status(404).json({ error: 'Receptionist does not found' })
+        }
+        res.status(200).send(receptionistData)
+
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'No such Receptionist is availabvle in this hospital' })
+    }
+}
+
+export async function allReceptionistData(req, res) {
+    try {
+        let receptionistData = await ReceiptionsModel.find()
+        if (!receptionistData) {
+            return res.status(404).json({ error: "No Receptionist available" })
+        }
+        res.status(200).send(receptionistData)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ error: "Something went wrong" })
+    }
+}
+
+
+export const deleteReceptionist = async (req, res) => {
+    try {
+        const { referenceNo } = req.params;
+        if (!mongoose.isValidObjectId(referenceNo)) {
+            return res.status(400).send({ error: 'Please pass valid Reception referenece no' })
+        }
+        let receptionist = await ReceiptionsModel.findOneAndDelete({ _id: referenceNo });
+        if (!receptionist) {
+            return res.status(404).json({ error: 'no such Receptionist is available in this hospital' })
+        }
+        res.status(200).json({ msg: 'receptionist deleted sucessfully' })
+    }
+    catch (error) {
+        console.log(error)
+        res.status(401).send({ error: "you can't delete the reception" })
+    }
+}
+
+
+export const updateReceptionist = async (req, res) => {
+    try {
+        const { referenceNo } = req.params;
+
+        if (!mongoose.isValidObjectId(referenceNo)) {
+            return res.status(400).json({ error: 'please pass valid Reference No' })
+        }
+
+
+        let updateReceptionistData = await ReceiptionsModel.findByIdAndUpdate(
+            referenceNo,
+            {
+                $set: {
+                    name: req.body.name, password: req.body.password, gender: req.body.gender,
+                    email: req.body.email, mobile: req.body.mobile, address: req.body.address
+                }
+            },
+            { new: true }
+        );
+        if (!updateReceptionistData) {
+            return res.status(404).json({ error: 'Reception not found' })
+        }
+
+        res.status(200).json({ msg: "Reception Data updated successfylly" })
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).send({ error: "Some thing went wrong while update the Receptioninst" })
     }
 }
