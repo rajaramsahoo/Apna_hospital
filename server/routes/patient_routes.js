@@ -1,6 +1,6 @@
 import express from 'express';
 import {createPatient, viewyourData, updatePatientData, allPatient} from '../controllers/patient_controller.js';
-
+import {validationErrors, patientCreateValidation} from '../middlewares/validation.js'
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ description: create a patient
 method :post
 api_url: api/patient
 */
-router.post('/',createPatient)
+router.post('/',patientCreateValidation(),validationErrors,createPatient)
 
 /*
 description: get own patient data

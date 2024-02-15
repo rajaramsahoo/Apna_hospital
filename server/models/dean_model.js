@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-const { Schema } = mongoose
+const {Schema} = mongoose
 
-const doctorSchema = new Schema({
+const deanSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -34,23 +34,7 @@ const doctorSchema = new Schema({
     address: {
         type: String,
         required: true,
-    },
-    department: {
-        type: String,
-        required: true
-    },
-
-    availability: [{
-        startTime: String, 
-        endTime: String 
-    }],
-    addedByDean: {
-        type: String,
-        required: true,
     }
-
-
-
 })
 
-export default mongoose.model('Doctormodel', doctorSchema, "Doctors")
+export default mongoose.model('Deanmodel', deanSchema, "Deans")
