@@ -196,3 +196,16 @@ export const addAvailability = async (req, res) => {
         res.status(500).json({ error: "Something went wrong while adding availability" });
     }
 };
+
+export async function allDoctorData(req, res) {
+    try {
+        let DoctorData = await Doctormodel.find()
+        if (!DoctorData) {
+            return res.status(404).json({ error: "No Doctor available" })
+        }
+        res.status(200).send(DoctorData)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ error: "Something went wrong" })
+    }
+}

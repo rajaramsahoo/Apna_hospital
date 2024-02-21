@@ -30,7 +30,7 @@ export function isDoctor(req, res, next) {
         let token = req.headers.authorization.split(" ")[1];
         // console.log(token);
         let decode = jwt.verify(token, private_key);
-        if(decode.role == "doctor"){
+        if(decode.role == "doctor" || "dean"){
             req.payload = decode;
             next();
         }
@@ -52,7 +52,7 @@ export function isDean(req, res, next) {
         let token = req.headers.authorization.split(" ")[1];
         // console.log(token);
         let decode = jwt.verify(token, private_key);
-        if(decode.role == "dean"){
+        if(decode.role == "dean" || "doctor"){
             req.payload = decode;
             next();
         }
