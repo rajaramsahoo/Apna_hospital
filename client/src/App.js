@@ -12,6 +12,8 @@ import CreatePatient from './Dashboard/Patient/CreatePatient.jsx';
 import SingleDoctor from './Dashboard/Doctor/SingleDoctor.jsx';
 import SingleReceptionist from './Dashboard/Receptionist/SingleReceptionist.jsx';
 import SinglePatient from './Dashboard/Patient/SinglePatient.jsx';
+import DoctorDashboard from './Dashboard/DoctorDashboard.jsx';
+import ReceptionistDashboard from './Dashboard/ReceptionistDashboard.jsx';
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
       <Route path='/doctor/view/:doctorId' element={<SingleDoctor/>}/>
       <Route path='/receptionist/view/:referenceNo' element={<SingleReceptionist/>}/>
       <Route path='/patient/view/:referenceNo' element={<SinglePatient/>}/>
+      <Route path='/doctor/doctordashboardpage' element={<DoctorDashboard/> }/>
+      <Route path='/receptionisr/receptionistdashboard' element={<ReceptionistDashboard/> }/>
+
 
 
 

@@ -116,6 +116,112 @@ function Home() {
         }
     }
 
+    //----------------------------------
+    const [doctorData, setDoctorData] = useState({
+        email: "",
+        password: ''
+    })
+
+    function onChangeHandlerDoctor(e) {
+        console.log(e.target.value)
+        setDoctorData({
+            ...doctorData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+
+    async function onClickHandlerDoctorlogin(e) {
+        try {
+            e.preventDefault();
+            console.log(deanData)
+            if (!doctorData.email.trim() || !doctorData.password.trim()) {
+                return window.alert("please pass Email and password")
+            }
+            const res = await axios.post("api/doctor/login", doctorData)
+            console.log(res.data)
+            localStorage.setItem("token", JSON.stringify({ token: res.data.token }))
+            navigate('/doctor/doctordashboardpage')
+        }
+        catch (error) {
+            console.log(error)
+            let errorString = "";
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach(element => {
+                    errorString += `${element.msg}`
+                    // showAlert({
+                    //     type : "err",
+                    //     msg: errorString
+                    // })
+                    window.alert(errorString)
+                });
+            }
+            else {
+                errorString = error.response.data.err;
+                // showAlert({
+                //   type: "error",
+                //   msg: errorString
+                // })
+                window.alert(errorString)
+            }
+
+        }
+    }
+    //---------------------==========--------
+
+    const [receptionistData, setReceptionistData] = useState({
+        email: "",
+        password: ''
+    })
+
+    function onChangeHandlerReceptionist(e) {
+        console.log(e.target.value)
+        setReceptionistData({
+            ...receptionistData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+
+    async function onClickHandlerReceptionistlogin(e) {
+        try {
+            e.preventDefault();
+            console.log(deanData)
+            if (!receptionistData.email.trim() || !receptionistData.password.trim()) {
+                return window.alert("please pass Email and password")
+            }
+            const res = await axios.post("api/receptionist/login", receptionistData)
+            console.log(res.data)
+            localStorage.setItem("token", JSON.stringify({ token: res.data.token }))
+            navigate('/receptionisr/receptionistdashboard')
+        }
+        catch (error) {
+            console.log(error)
+            let errorString = "";
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach(element => {
+                    errorString += `${element.msg}`
+                    // showAlert({
+                    //     type : "err",
+                    //     msg: errorString
+                    // })
+                    window.alert(errorString)
+                });
+            }
+            else {
+                errorString = error.response.data.err;
+                // showAlert({
+                //   type: "error",
+                //   msg: errorString
+                // })
+                window.alert(errorString)
+            }
+
+        }
+    }
+
+
+
 
     return (
         <div className='home-page'>
@@ -146,51 +252,52 @@ function Home() {
                 </div>
             </div>
             <div className='homepage-body'>
-                <div className='patientBooking'><form>
-                    <label>
-                        Enter the Patient Name:
-                        <input type="text" name="patientName" onChange={onChangeHandler} value={userData.patientName} />
-                    </label>
-                    <br />
-                    <label>
-                        Gender :
-                        <input type="text" name="gender" onChange={onChangeHandler} value={userData.gender} />
-                    </label>
+                <div className='patientBooking'>
+                    <h3 style={{ color: "black", textAlign: "center", }}>BOOK AN APPOINTMENT</h3><form>
+                        <label>
+                            Enter the Patient Name:
+                            <input type="text" name="patientName" onChange={onChangeHandler} value={userData.patientName} />
+                        </label>
+                        <br />
+                        <label>
+                            Gender :
+                            <input type="text" name="gender" onChange={onChangeHandler} value={userData.gender} />
+                        </label>
 
-                    <br />
-                    <label>
-                        Enter the Mobile Number   :
-                        <input type="text" name="mobileNumber" onChange={onChangeHandler} value={userData.mobileNumber} />
-                    </label>
-                    <br />
-                    <label>
-                        Enter the Adress :
-                        <input type="text" name="address" onChange={onChangeHandler} value={userData.address} />
-                    </label>
-                    <br />
-                    <label>
-                        Enter the Email :
-                        <input type="text" name="email" onChange={onChangeHandler} value={userData.email} />
-                    </label><br />
-                    <label>
-                        Enter the Aadhar :
-                        <input type="Number" name="aadhar" onChange={onChangeHandler} value={userData.aadhar} />
-                    </label><br />
-                    <label>
-                        Enter the DEPT :
-                        <input type="text" name="department" onChange={onChangeHandler} value={userData.department} />
-                    </label><br />
-                    <label>
-                        Enter the Dr. Name :
-                        <input type="text" name="doctorName" onChange={onChangeHandler} value={userData.doctorName} />
-                    </label><br />
-                    <label>
-                        Enter the Appiontment Date :
-                        <input type="datetime-local" name="appointmentTime" onChange={onChangeHandler} value={userData.appointmentTime} />
-                    </label>
-                    <br />
-                    <button type="submit" onClick={onClickHandler}>Book an appointment</button>
-                </form>
+                        <br />
+                        <label>
+                            Enter the Mobile Number   :
+                            <input type="text" name="mobileNumber" onChange={onChangeHandler} value={userData.mobileNumber} />
+                        </label>
+                        <br />
+                        <label>
+                            Enter the Adress :
+                            <input type="text" name="address" onChange={onChangeHandler} value={userData.address} />
+                        </label>
+                        <br />
+                        <label>
+                            Enter the Email :
+                            <input type="text" name="email" onChange={onChangeHandler} value={userData.email} />
+                        </label><br />
+                        <label>
+                            Enter the Aadhar :
+                            <input type="Number" name="aadhar" onChange={onChangeHandler} value={userData.aadhar} />
+                        </label><br />
+                        <label>
+                            Enter the DEPT :
+                            <input type="text" name="department" onChange={onChangeHandler} value={userData.department} />
+                        </label><br />
+                        <label>
+                            Enter the Dr. Name :
+                            <input type="text" name="doctorName" onChange={onChangeHandler} value={userData.doctorName} />
+                        </label><br />
+                        <label>
+                            Enter the Appiontment Date :
+                            <input type="datetime-local" name="appointmentTime" onChange={onChangeHandler} value={userData.appointmentTime} />
+                        </label>
+                        <br />
+                        <button type="submit" onClick={onClickHandler}>Book an appointment</button>
+                    </form>
                 </div>
                 <div className='logIn'>
                     <div>
@@ -204,12 +311,12 @@ function Home() {
                                 marginRight: '-50%',
                                 transform: 'translate(-50%, -50%)',
                                 backgroundColor: 'aqua'
-                            },
+                            }
                         }}>
                             <center>
                                 <h1>Dean Log in</h1>
                                 <button onClick={() => setVisible(false)}>❌</button>
-                                <div className="container">
+                                <div >
                                     <form>
                                         <label>
                                             <b> Enter the Email</b> :
@@ -242,24 +349,56 @@ function Home() {
                             <center>
                                 <h1>Doctor Login</h1>
                                 <button onClick={() => setVisible(false)}>❌</button>
-                                <div className="container">
+                                <div>
                                     <form>
                                         <label>
                                             <b> Enter the Email</b> :
-                                            <input type="text" name="email" onChange={onChangeHandlerDean} />
+                                            <input type="text" name="email" onChange={onChangeHandlerDoctor} />
                                         </label>
                                         <br />
                                         <label>
                                             <b>Enter the possword</b> :
-                                            <input type="password" name="password" onChange={onChangeHandlerDean} />
+                                            <input type="password" name="password" onChange={onChangeHandlerDoctor} />
                                         </label>
-                                        <button type="submit" onClick={onClickHandlerDeanlogin}>Log In</button>
+                                        <button type="submit" onClick={onClickHandlerDoctorlogin}>Log In</button>
                                     </form>
                                 </div>
                             </center>
                         </Modal>
                     </div>
-                    <div>Receptionist Login </div>
+                    <div>
+                        <button onClick={visibleHandle}>Receptionist Login</button>
+                        <Modal isOpen={visible} onRequestClose={() => setVisible(false)} style={{
+                            content: {
+                                top: '50%',
+                                left: '50%',
+                                right: 'auto',
+                                bottom: 'auto',
+                                marginRight: '-50%',
+                                transform: 'translate(-50%, -50%)',
+                                backgroundColor: 'aqua'
+                            },
+                        }}>
+                            <center>
+                                <h1>Receptionist Login</h1>
+                                <button onClick={() => setVisible(false)}>❌</button>
+                                <div>
+                                    <form>
+                                        <label>
+                                            <b> Enter the Email</b> :
+                                            <input type="text" name="email" onChange={onChangeHandlerReceptionist} />
+                                        </label>
+                                        <br />
+                                        <label>
+                                            <b>Enter the possword</b> :
+                                            <input type="password" name="password" onChange={onChangeHandlerReceptionist} />
+                                        </label>
+                                        <button type="submit" onClick={onClickHandlerReceptionistlogin}>Log In</button>
+                                    </form>
+                                </div>
+                            </center>
+                        </Modal>
+                    </div>
                 </div>
             </div>
             <div>Footer</div>

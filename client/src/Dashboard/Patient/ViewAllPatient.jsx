@@ -32,7 +32,7 @@ function ViewAllPatient() {
     return (
         <>
             <center>
-                <h1>All Receptionist Data</h1>
+                <h1>All Patients Data</h1>
                 <table>
                     <thead>
                         <tr>

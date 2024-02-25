@@ -34,7 +34,7 @@ function SinglePatient() {
         <>
             <center>
 
-                <h2>` {patientData.name} Receptionist Data`</h2>
+                <h2> {patientData.name} Receptionist Data</h2>
                 <table>
                     <thead>
                         <tr>
@@ -74,3 +74,8 @@ function SinglePatient() {
 }
 
 export default SinglePatient
+
+
+
+
+
